@@ -3,12 +3,14 @@
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
-  '(ahg helm elpy auto-complete ein evernote-mode flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit zenburn))
+  '(ahg helm elpy auto-complete ein evernote-mode flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit base16-theme))
 
 ; fetch the list of packages available 
 (or (file-exists-p package-user-dir)
@@ -20,7 +22,7 @@
     (package-install package)))
 
 ; Theming
-(load-theme 'zenburn t) ; The trendiest theme?
+(load-theme 'base16-solarized t) ; The trendiest theme? Use base16-default for black bkg
 (setq inhibit-splash-screen t) ; Splash screen? Meh.
 (setq inhibit-startup-message t) ; No startup message
 (tool-bar-mode 0) ; No ugly toolbar
@@ -41,6 +43,7 @@
 ; requires pip install elpy rope
 (elpy-enable)
 (elpy-clean-modeline)
+(setq elpy-default-minor-modes '(eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)) ; I don't like highlight-indentation-mode
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -54,7 +57,11 @@
 (global-set-key [f10] 'flymake-goto-prev-error)
 (global-set-key [f11] 'flymake-goto-next-error)
 
-(custom-set-faces ; Less annoying flymake coloring
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(flymake-errline ((((class color)) (:underline "red"))))
  '(flymake-warnline ((((class color)) (:underline "yellow")))))
 
@@ -85,5 +92,3 @@
 (global-set-key "\C-cew" 'evernote-write-note-in-notebook)
 (global-set-key "\C-cep" 'evernote-post-region-in-notebook)
 (global-set-key "\C-ceb" 'evernote-browser)
-
-
