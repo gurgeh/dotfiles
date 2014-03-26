@@ -8,7 +8,7 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
-  '(ahg helm elpy auto-complete ein evernote-mode flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit))
+  '(ahg helm elpy auto-complete ein evernote-mode flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit zenburn))
 
 ; fetch the list of packages available 
 (or (file-exists-p package-user-dir)
@@ -20,7 +20,7 @@
     (package-install package)))
 
 ; Theming
-(load-theme 'wheatgrass) ; tango is nice for light themes
+(load-theme 'zenburn t) ; The trendiest theme?
 (setq inhibit-splash-screen t) ; Splash screen? Meh.
 (setq inhibit-startup-message t) ; No startup message
 (tool-bar-mode 0) ; No ugly toolbar
