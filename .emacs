@@ -10,7 +10,7 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
-  '(ahg helm elpy auto-complete ein evernote-mode flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit base16-theme))
+  '(ahg helm elpy auto-complete ein evernote-mode flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit base16-theme py-autopep8))
 
 ; fetch the list of packages available 
 (or (file-exists-p package-user-dir)
@@ -47,6 +47,14 @@
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+(setq-default column-number-mode 1)
+
+; requires pip install autopep8
+(require 'py-autopep8)
+(setq py-autopep8-options '("--max-line-length=100"))
+(add-hook 'python-mode-hook
+  (lambda() 
+    (local-set-key  (kbd "C-c p") 'py-autopep8))) ; Use C-c p to apply pep8 formatting automatically
 
 ; IPython Notebook - M-x ein:<tab> for commands
 ; Requires a notebook server (run "ipython notebook")
