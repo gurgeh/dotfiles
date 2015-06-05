@@ -10,7 +10,7 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
-  '(ahg helm elpy auto-complete ein evernote-mode flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit base16-theme py-autopep8))
+  '(ahg helm elpy auto-complete ein flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit base16-theme py-autopep8))
 
 ; fetch the list of packages available 
 (or (file-exists-p package-user-dir)
@@ -22,7 +22,7 @@
     (package-install package)))
 
 ; Theming
-(load-theme 'base16-solarized t) ; The trendiest theme? Use base16-default for black bkg
+(load-theme 'base16-solarized-dark t) ; The trendiest theme? Use base16-default for black bkg
 (setq inhibit-splash-screen t) ; Splash screen? Meh.
 (setq inhibit-startup-message t) ; No startup message
 (tool-bar-mode 0) ; No ugly toolbar
@@ -39,11 +39,14 @@
 
 (require 'iedit) ; C-; for sublime multi-cursor-edit
 
-; Elpy - Python in Emaacs
+; Elpy - Python in Emacs
 ; requires pip install elpy rope
 (elpy-enable)
-(elpy-clean-modeline)
-(setq elpy-default-minor-modes '(eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)) ; I don't like highlight-indentation-mode
+;(elpy-clean-modeline)
+(setq elpy-default-minor-modes '(eldoc-mode flymake-mode yas-minor-mode auto-complete-mode))
+
+(add-hook 'python-mode-hook (highlight-indentation-mode 0))  ; I don't like highlight-indentation-mode
+
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -89,14 +92,17 @@
 ; Tramp
 (setq tramp-default-method "ssh")
 
-; Evernote
-(require 'evernote-mode)
-(setq evernote-username "fnedrik") ; optional: you can use this username as default.
-(setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
-(global-set-key "\C-cec" 'evernote-create-note-in-notebook)
-(global-set-key "\C-ceo" 'evernote-open-note)
-(global-set-key "\C-ces" 'evernote-search-notes)
-(global-set-key "\C-ceS" 'evernote-do-saved-search)
-(global-set-key "\C-cew" 'evernote-write-note-in-notebook)
-(global-set-key "\C-cep" 'evernote-post-region-in-notebook)
-(global-set-key "\C-ceb" 'evernote-browser)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#002b36" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#93a1a1"])
+ '(ansi-term-color-vector
+   [unspecified "#002b36" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#93a1a1"])
+ '(custom-safe-themes
+   (quote
+    ("6ebb2401451dc6d01cd761eef8fe24812a57793c5ccc427b600893fa1d767b1d" default))))
