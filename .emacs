@@ -10,7 +10,7 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
-  '(ahg helm elpy auto-complete ein flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit base16-theme py-autopep8))
+  '(ahg helm elpy auto-complete ein flymake flymake-cursor highlight-indentation ido-ubiquitous idomenu iedit base16-theme py-autopep8 powerline))
 
 ; fetch the list of packages available 
 (or (file-exists-p package-user-dir)
@@ -21,15 +21,17 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+(powerline-default-theme)
+
 ; Theming
-(load-theme 'base16-solarized-dark t) ; The trendiest theme? Use base16-default for black bkg
+(load-theme 'base16-tomorrow-dark t) ; The trendiest theme? Use base16-default for black bkg
 (setq inhibit-splash-screen t) ; Splash screen? Meh.
 (setq inhibit-startup-message t) ; No startup message
 (tool-bar-mode 0) ; No ugly toolbar
 (show-paren-mode 1)
 (setq frame-title-format (list "%b - " invocation-name))
 
-(require 'helm) ; Completion helper - successor to anything
+(require 'helm) ; Completion helper - successor to anything. Does it collide with elpy/company mode?
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
@@ -43,9 +45,8 @@
 ; requires pip install elpy rope
 (elpy-enable)
 ;(elpy-clean-modeline)
+(require 'highlight-indentation)
 (setq elpy-default-minor-modes '(eldoc-mode flymake-mode yas-minor-mode auto-complete-mode))
-
-(add-hook 'python-mode-hook (highlight-indentation-mode 0))  ; I don't like highlight-indentation-mode
 
 
 (setq-default indent-tabs-mode nil)
@@ -92,7 +93,8 @@
 ; Tramp
 (setq tramp-default-method "ssh")
 
-
+(add-to-list 'default-frame-alist '(height . 80))
+(add-to-list 'default-frame-alist '(width . 160))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -105,4 +107,7 @@
    [unspecified "#002b36" "#dc322f" "#859900" "#b58900" "#268bd2" "#6c71c4" "#268bd2" "#93a1a1"])
  '(custom-safe-themes
    (quote
-    ("6ebb2401451dc6d01cd761eef8fe24812a57793c5ccc427b600893fa1d767b1d" default))))
+    ("75c0b1d2528f1bce72f53344939da57e290aa34bea79f3a1ee19d6808cb55149" "cda6cb17953b3780294fa6688b3fe0d3d12c1ef019456333e3d5af01d4d6c054" "6ebb2401451dc6d01cd761eef8fe24812a57793c5ccc427b600893fa1d767b1d" default)))
+ '(elpy-modules
+   (quote
+    (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults highlight-indentation-current-column-mode))))
